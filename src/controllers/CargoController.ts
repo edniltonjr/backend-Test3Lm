@@ -15,6 +15,8 @@ class CargoController {
     return response.json(serializedItems);
   }
 
+
+
   async create (request: Request, response: Response) {
     const { descricao } = request.body;
 
@@ -28,9 +30,8 @@ class CargoController {
 
     await trx.commit();
 
-    response.json({message: 'Cargo Cadastrado com Sucesso'});
-    }
-
+    response.json({id: insertedIds[0], descricao: request.body.descricao, message: 'Cadastro efetuado com Sucesso '})
+  }
     async update (request: Request, response: Response) {
         const { descricao } = request.body;
     

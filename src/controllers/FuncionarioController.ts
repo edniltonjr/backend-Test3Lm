@@ -19,6 +19,22 @@ class FuncionarioController {
     return response.json(serializedItems);
   }
 
+  async index(request: Request, response: Response) {
+    const items = await knex.raw('SELECT func.nome, func.sobrenome, c.descricao, func.nascimento, func.salario FROM funcionarios func, cargos c where func.cargo_id = c.id')
+    const serializedItems = items[0].map((func: any) => {
+      return {
+        nome: func.nome,
+        sobrenome: func.sobrenome,
+        cargo: func.descricao,
+        nascimento: func.nascimento,
+        salario: func.salario
+      };
+    });
+    console.log(serializedItems);
+
+    return response.json(serializedItems);
+  }
+
   async create (request: Request, response: Response) {
     const { nome, sobrenome, cargo_id, nascimento, salario } = request.body;
 
